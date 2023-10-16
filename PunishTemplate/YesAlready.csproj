@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <Authors>Puni.sh</Authors>
+        <Authors>daemitus, croizat</Authors>
         <Version>0.0.0.1</Version>
     </PropertyGroup>
 
@@ -9,7 +9,7 @@
         <TargetFramework>net7.0-windows</TargetFramework>
         <Platforms>x64</Platforms>
         <LangVersion>preview</LangVersion>
-        <PluginName>PunishTemplate</PluginName>
+        <PluginName>YesAlready</PluginName>
         <DalamudDevPlugins>$(appdata)\XIVLauncher\devPlugins\$(PluginName)\</DalamudDevPlugins>
         <DalamudLibPath>$(appdata)\XIVLauncher\addon\Hooks\dev\</DalamudLibPath>
         <DalamudPluginPath>$(appdata)\XIVLauncher\installedPlugins\$(PluginName)\$(version)</DalamudPluginPath>
@@ -29,20 +29,14 @@
         <OutputPath>bin/Release</OutputPath>
     </PropertyGroup>
 
-    <ItemGroup Condition="'$(Configuration)' == 'Release'">
-        <PackageReference Include="PunishLib" Version="1.0.1.2" />
-        <PackageReference Include="ECommons" Version="2.0.0.1" />
-    </ItemGroup>
-
-    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
-        <ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
-        <ProjectReference Include="..\PunishLib\PunishLib\PunishLib.csproj" />
-    </ItemGroup>
-
     <PropertyGroup Condition="'$(Configuration)' == 'Debug'">
         <OutputPath>$(DalamudDevPlugins)</OutputPath>
     </PropertyGroup>
-    
+
+    <ItemGroup>
+        <ProjectReference Include="..\ClickLib\ClickLib\ClickLib.csproj" />
+        <ProjectReference Include="..\ECommons\ECommons\ECommons.csproj" />
+    </ItemGroup>
     
     <PropertyGroup Condition="'$(OS)' != 'Windows_NT' OR '$(CI)' == 'true'">
         <DalamudLibPath>$(DALAMUD_HOME)/</DalamudLibPath>
@@ -82,7 +76,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Update="PunishTemplate.json">
+      <None Update="YesAlready.json">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </None>
     </ItemGroup>

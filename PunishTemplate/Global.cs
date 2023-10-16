@@ -1,1 +1,1 @@
-global using static PunishPlugin.Plugin;
+global using static YesAlready.YesAlready;
