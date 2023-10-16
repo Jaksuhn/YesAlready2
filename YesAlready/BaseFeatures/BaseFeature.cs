@@ -219,7 +219,6 @@ public static class ExtensionMethods
                 if (!DetermineInvokeKind()) return;
             }
 
-
             try
             {
                 var _ = Kind switch
@@ -247,7 +246,6 @@ public static class ExtensionMethods
                 Svc.Log.Error($"Error invoking {Feature.Key} :: {Method.Name}. Event has been disabled.", ex);
                 Kind = SubscriberKind.Error;
             }
-
         }
     }
     private static Dictionary<AddonEvent, Dictionary<string, List<EventSubscriber>>> AddonEventSubscribers { get; } = new();

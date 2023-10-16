@@ -10,7 +10,6 @@ internal class AddonContentsFinderConfirmFeature : BaseFeature
     [AddonPostSetup("ContentsFinderConfirm")]
     protected static unsafe void AddonSetup(AtkUnitBase* addon)
     {
-        Utils.SEString.PrintPluginMessage("contens finder");
         if (!P.Config.ContentsFinderConfirmEnabled)
             return;
 

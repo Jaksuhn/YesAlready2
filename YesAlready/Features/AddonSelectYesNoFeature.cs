@@ -6,13 +6,14 @@ using ClickLib.Clicks;
 using ECommons.DalamudServices;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Component.GUI;
+using YesAlready.BaseFeatures;
 using YesAlready.Events;
 
 namespace YesAlready.Features;
 
-internal class AddonSelectYesNoFeature
+internal class AddonSelectYesNoFeature : BaseFeature
 {
-    [AddonPostSetup("SelectYesNo")]
+    [AddonPostSetup("SelectYesno")]
     protected unsafe void AddonSetup(AtkUnitBase* addon)
     {
         var dataPtr = (AddonSelectYesNoOnSetupData*)addon;
