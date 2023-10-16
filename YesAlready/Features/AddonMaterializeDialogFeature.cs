@@ -7,8 +7,6 @@ namespace YesAlready.Features;
 
 internal class AddonMaterializeDialogFeature : BaseFeature
 {
-    public override string Name => nameof(AddonMaterializeDialogFeature);
-
     [AddonPostSetup("MaterializeDialog")]
     protected static unsafe void AddonSetup(AtkUnitBase* addon)
     {

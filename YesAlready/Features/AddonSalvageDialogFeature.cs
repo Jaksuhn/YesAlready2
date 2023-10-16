@@ -8,8 +8,6 @@ namespace YesAlready.Features;
 
 internal class AddonSalvageDialogFeature : BaseFeature
 {
-    public override string Name => nameof(AddonSalvageDialogFeature);
-
     [AddonPostSetup("SalvageDialog")]
     protected unsafe void AddonSetup(AtkUnitBase* addon)
     {

@@ -13,8 +13,6 @@ namespace YesAlready.Features;
 
 internal class AddonInclusionShopFeature : BaseFeature, IDisposable
 {
-    public override string Name => nameof(AddonInclusionShopFeature);
-
     [AddonPostSetup("InclusionShop")]
     protected unsafe void AddonSetup(AtkUnitBase* addon)
     {

@@ -11,8 +11,6 @@ namespace YesAlready.Features;
 
 internal class AddonSelectIconStringFeature : OnSetupSelectListFeature
 {
-    public override string Name => nameof(AddonSelectIconStringFeature);
-
     [AddonPostSetup("SelectIconString")]
     protected unsafe void AddonSetup(AtkUnitBase* addon)
     {

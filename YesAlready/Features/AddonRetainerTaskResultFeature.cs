@@ -10,8 +10,6 @@ namespace YesAlready.Features;
 
 internal class AddonRetainerTaskResultFeature : BaseFeature
 {
-    public override string Name => nameof(AddonRetainerTaskResultFeature);
-
     [AddonPostSetup("RetainerTaskResult")]
     protected unsafe void AddonSetup(AtkUnitBase* addon)
     {

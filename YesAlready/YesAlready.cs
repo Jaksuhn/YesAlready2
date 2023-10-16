@@ -15,11 +15,15 @@ using YesAlready.BaseFeatures;
 using System.Reflection;
 using Dalamud.Game.Gui.Dtr;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
+using Dalamud.IoC;
+using Dalamud.Plugin.Services;
 
 namespace YesAlready;
 
 public class YesAlready : IDalamudPlugin
 {
+    [PluginService] public static IAddonLifecycle AddonLifecycle { get; private set; }
+
     public static string Name => "YesAlready";
     private const string Command = "/yesalready";
     private static string[] Aliases => new string[] { "/pyes" };
@@ -32,9 +36,6 @@ public class YesAlready : IDalamudPlugin
 
     internal static YesAlready P;
     internal static DalamudPluginInterface pi;
-
-    public List<FeatureProvider> FeatureProviders = new();
-    private readonly FeatureProvider provider;
 
     private DtrBarEntry dtrEntry;
 
@@ -72,14 +73,28 @@ public class YesAlready : IDalamudPlugin
 
         Click.Initialize();
         LoadTerritories();
-
-        provider = new FeatureProvider(Assembly.GetExecutingAssembly());
-        provider.LoadFeatures();
-        FeatureProviders.Add(provider);
+        RegisterEvents(true);
 
         Svc.Framework.Update += FrameworkUpdate;
         Svc.PluginInterface.UiBuilder.Draw += Ws.Draw;
         Svc.PluginInterface.UiBuilder.OpenConfigUi += DrawConfigUI;
+    }
+
+    private static void RegisterEvents(bool enable)
+    {
+        var featureAssembly = Assembly.GetExecutingAssembly();
+
+        foreach (var type in featureAssembly.GetTypes())
+        {
+            if (typeof(BaseFeature).IsAssignableFrom(type) && !type.IsAbstract)
+            {
+                var feature = (BaseFeature)Activator.CreateInstance(type);
+                if (enable)
+                    feature.Enable();
+                else
+                    feature.Disable();
+            }
+        }
     }
 
     public void Dispose()
@@ -91,12 +106,10 @@ public class YesAlready : IDalamudPlugin
         registeredCommands.Clear();
 
         Svc.Framework.Update -= FrameworkUpdate;
+        RegisterEvents(false);
 
         Svc.PluginInterface.UiBuilder.Draw -= Ws.Draw;
         Svc.PluginInterface.UiBuilder.OpenConfigUi -= DrawConfigUI;
-
-        provider.UnloadFeatures();
-        FeatureProviders.Clear();
 
         Ws.RemoveAllWindows();
         MainWindow = null;

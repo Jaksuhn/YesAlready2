@@ -8,8 +8,6 @@ namespace YesAlready.Features;
 
 internal class AddonJournalResultFeature : BaseFeature
 {
-    public override string Name => nameof(AddonJournalResultFeature);
-
     [AddonPostSetup("JournalResult")]
     protected unsafe void AddonSetup(AtkUnitBase* addon)
     {

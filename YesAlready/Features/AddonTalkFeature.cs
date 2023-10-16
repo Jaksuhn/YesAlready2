@@ -12,8 +12,6 @@ namespace YesAlready.Features;
 
 internal class AddonTalkFeature : BaseFeature
 {
-    public override string Name => nameof(AddonTalkFeature);
-
     private ClickTalk? clickTalk = null;
     private IntPtr lastTalkAddon = IntPtr.Zero;
 

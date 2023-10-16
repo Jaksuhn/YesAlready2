@@ -1,5 +1,4 @@
 using ClickLib.Clicks;
-using Dalamud.Game.Addon.Lifecycle;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using YesAlready.BaseFeatures;
 using YesAlready.Events;
@@ -8,11 +7,10 @@ namespace YesAlready.Features;
 
 internal class AddonContentsFinderConfirmFeature : BaseFeature
 {
-    public override string Name => nameof(AddonContentsFinderConfirmFeature);
-
     [AddonPostSetup("ContentsFinderConfirm")]
     protected static unsafe void AddonSetup(AtkUnitBase* addon)
     {
+        Utils.SEString.PrintPluginMessage("contens finder");
         if (!P.Config.ContentsFinderConfirmEnabled)
             return;
 

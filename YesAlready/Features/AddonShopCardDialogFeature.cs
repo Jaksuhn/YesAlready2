@@ -8,8 +8,6 @@ namespace YesAlready.Features;
 
 internal class AddonShopCardDialogFeature : BaseFeature
 {
-    public override string Name => nameof(AddonShopCardDialogFeature);
-
     [AddonPostSetup("ShopCardDialog")]
     protected unsafe void AddonSetup(AtkUnitBase* addon)
     {

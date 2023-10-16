@@ -10,8 +10,6 @@ namespace YesAlready.Features;
 
 internal class AddonItemInspectionResultFeature : BaseFeature
 {
-    public override string Name => nameof(AddonItemInspectionResultFeature);
-
     private int itemInspectionCount = 0;
 
     [AddonPostSetup("ItemInspectionResult")]

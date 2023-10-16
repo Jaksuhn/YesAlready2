@@ -7,8 +7,6 @@ namespace YesAlready.Features;
 
 internal class AddonMateriaRetrieveDialogFeature : BaseFeature
 {
-    public override string Name => nameof(AddonMateriaRetrieveDialogFeature);
-
     [AddonPostSetup("MateriaRetrieveDialog")]
     protected static unsafe void AddonSetup(AtkUnitBase* addon)
     {
