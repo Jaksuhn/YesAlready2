@@ -3,24 +3,40 @@ using System.Linq;
 using System.Runtime.InteropServices;
 
 using ClickLib.Clicks;
+using Dalamud.Game.Addon.Lifecycle;
+using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
+using Dalamud.Memory;
 using ECommons.DalamudServices;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using YesAlready.BaseFeatures;
-using YesAlready.Events;
 
 namespace YesAlready.Features;
 
 internal class AddonSelectYesNoFeature : BaseFeature
 {
-    [AddonPostSetup("SelectYesno")]
-    protected unsafe void AddonSetup(AtkUnitBase* addon)
+    public override void Enable()
     {
+        base.Enable();
+        AddonLifecycle.RegisterListener(AddonEvent.PostSetup, "SelectYesno", AddonSetup);
+    }
+
+    public override void Disable()
+    {
+        base.Disable();
+        AddonLifecycle.UnregisterListener(AddonSetup);
+    }
+
+    protected unsafe void AddonSetup(AddonEvent eventType, AddonArgs addonInfo)
+    {
+        var addon = (AtkUnitBase*)addonInfo.Addon;
+
         var dataPtr = (AddonSelectYesNoOnSetupData*)addon;
         if (dataPtr == null)
             return;
 
-        var text = P.LastSeenDialogText = Utils.SEString.GetSeStringText(dataPtr->TextPtr);
+        //var text = P.LastSeenDialogText = Utils.SEString.GetSeStringText(dataPtr->TextPtr);
+        var text = P.LastSeenDialogText = MemoryHelper.ReadSeStringNullTerminated(new nint(addon->AtkValues[0].String)).ToString();
         Svc.Log.Debug($"AddonSelectYesNo: text={text}");
 
         if (P.ForcedYesKeyPressed)

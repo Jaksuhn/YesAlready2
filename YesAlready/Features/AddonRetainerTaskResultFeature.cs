@@ -1,18 +1,32 @@
 using ClickLib.Clicks;
+using Dalamud.Game.Addon.Lifecycle;
+using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
 using ECommons.DalamudServices;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using Lumina.Excel.GeneratedSheets;
 using YesAlready.BaseFeatures;
-using YesAlready.Events;
 
 namespace YesAlready.Features;
 
 internal class AddonRetainerTaskResultFeature : BaseFeature
 {
-    [AddonPostSetup("RetainerTaskResult")]
-    protected unsafe void AddonSetup(AtkUnitBase* addon)
+    public override void Enable()
     {
+        base.Enable();
+        AddonLifecycle.RegisterListener(AddonEvent.PostSetup, "RetainerTaskResult", AddonSetup);
+    }
+
+    public override void Disable()
+    {
+        base.Disable();
+        AddonLifecycle.UnregisterListener(AddonSetup);
+    }
+
+    protected unsafe void AddonSetup(AddonEvent eventType, AddonArgs addonInfo)
+    {
+        var addon = (AtkUnitBase*)addonInfo.Addon;
+
         if (!P.Config.RetainerTaskResultEnabled)
             return;
 

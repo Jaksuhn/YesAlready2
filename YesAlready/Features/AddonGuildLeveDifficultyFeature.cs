@@ -6,16 +6,15 @@ using YesAlready.BaseFeatures;
 
 namespace YesAlready.Features;
 
-internal class AddonMateriaRetrieveDialogFeature : BaseFeature
+internal class AddonGuildLeveDifficultyFeature : BaseFeature
 {
     public override void Enable()
     {
         base.Enable();
-        AddonLifecycle.RegisterListener(AddonEvent.PostSetup, "MateriaRetrieveDialog", AddonSetup);
+        AddonLifecycle.RegisterListener(AddonEvent.PostSetup, "GuildLeveDifficulty", AddonSetup);
     }
 
-    public override void Disable()
-    {
+    public override void Disable() {
         base.Disable();
         AddonLifecycle.UnregisterListener(AddonSetup);
     }
@@ -24,9 +23,9 @@ internal class AddonMateriaRetrieveDialogFeature : BaseFeature
     {
         var addon = (AtkUnitBase*)addonInfo.Addon;
 
-        if (!P.Config.MateriaRetrieveDialogEnabled)
+        if (!P.Config.GuildLeveDifficultyConfirm)
             return;
 
-        ClickMateriaRetrieveDialog.Using((nint)addon).Begin();
+        ClickGuildLeveDifficulty.Using((nint)addon).Confirm(addon->AtkValues[1].Int);
     }
 }

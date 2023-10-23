@@ -1,16 +1,30 @@
 using ClickLib.Clicks;
+using Dalamud.Game.Addon.Lifecycle;
+using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using YesAlready.BaseFeatures;
-using YesAlready.Events;
 
 namespace YesAlready.Features;
 
 internal class AddonShopCardDialogFeature : BaseFeature
 {
-    [AddonPostSetup("ShopCardDialog")]
-    protected unsafe void AddonSetup(AtkUnitBase* addon)
+    public override void Enable()
     {
+        base.Enable();
+        AddonLifecycle.RegisterListener(AddonEvent.PostSetup, "ShopCardDialog", AddonSetup);
+    }
+
+    public override void Disable()
+    {
+        base.Disable();
+        AddonLifecycle.UnregisterListener(AddonSetup);
+    }
+
+    protected unsafe void AddonSetup(AddonEvent eventType, AddonArgs addonInfo)
+    {
+        var addon = (AtkUnitBase*)addonInfo.Addon;
+
         if (!P.Config.ShopCardDialog)
             return;
 

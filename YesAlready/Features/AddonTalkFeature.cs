@@ -2,22 +2,36 @@ using System;
 using System.Linq;
 
 using ClickLib.Clicks;
+using Dalamud.Game.Addon.Lifecycle;
+using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
 using ECommons.DalamudServices;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using YesAlready.BaseFeatures;
-using YesAlready.Events;
 
 namespace YesAlready.Features;
 
 internal class AddonTalkFeature : BaseFeature
 {
+    public override void Enable()
+    {
+        base.Enable();
+        AddonLifecycle.RegisterListener(AddonEvent.PostUpdate, "Talk", AddonSetup);
+    }
+
+    public override void Disable()
+    {
+        base.Disable();
+        AddonLifecycle.UnregisterListener(AddonSetup);
+    }
+
     private ClickTalk? clickTalk = null;
     private IntPtr lastTalkAddon = IntPtr.Zero;
 
-    [AddonPostUpdate("Talk")]
-    protected unsafe void AddonSetup(AtkUnitBase* addon)
+    protected unsafe void AddonSetup(AddonEvent eventType, AddonArgs addonInfo)
     {
+        var addon = (AtkUnitBase*)addonInfo.Addon;
+
         var addonPtr = (AddonTalk*)addon;
         if (!addonPtr->AtkUnitBase.IsVisible)
             return;

@@ -1,20 +1,34 @@
 using ClickLib.Clicks;
+using Dalamud.Game.Addon.Lifecycle;
+using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
 using Dalamud.Game.Text.SeStringHandling.Payloads;
 using ECommons.DalamudServices;
 using FFXIVClientStructs.FFXIV.Client.UI;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using YesAlready.BaseFeatures;
-using YesAlready.Events;
 
 namespace YesAlready.Features;
 
 internal class AddonItemInspectionResultFeature : BaseFeature
 {
+    public override void Enable()
+    {
+        base.Enable();
+        AddonLifecycle.RegisterListener(AddonEvent.PostSetup, "ItemInspectionResult", AddonSetup);
+    }
+
+    public override void Disable()
+    {
+        base.Disable();
+        AddonLifecycle.UnregisterListener(AddonSetup);
+    }
+
     private int itemInspectionCount = 0;
 
-    [AddonPostSetup("ItemInspectionResult")]
-    protected unsafe void AddonSetup(AtkUnitBase* addon)
+    protected unsafe void AddonSetup(AddonEvent eventType, AddonArgs addonInfo)
     {
+        var addon = (AtkUnitBase*)addonInfo.Addon;
+
         if (!P.Config.ItemInspectionResultEnabled)
             return;
 

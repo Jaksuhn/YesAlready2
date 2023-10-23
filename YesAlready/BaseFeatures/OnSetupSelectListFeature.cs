@@ -2,7 +2,6 @@ using System;
 using System.Linq;
 
 using Dalamud.Hooking;
-using Dalamud.Logging;
 using ECommons.DalamudServices;
 using FFXIVClientStructs.FFXIV.Client.UI;
 

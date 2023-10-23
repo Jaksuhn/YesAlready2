@@ -1,11 +1,11 @@
 using System;
-
+using Dalamud.Game.Addon.Lifecycle;
+using Dalamud.Game.Addon.Lifecycle.AddonArgTypes;
 using Dalamud.Hooking;
 using Dalamud.Utility.Signatures;
 using ECommons.DalamudServices;
 using FFXIVClientStructs.FFXIV.Component.GUI;
 using YesAlready.BaseFeatures;
-using YesAlready.Events;
 using YesAlready.Utils;
 using ValueType = FFXIVClientStructs.FFXIV.Component.GUI.ValueType;
 
@@ -13,9 +13,22 @@ namespace YesAlready.Features;
 
 internal class AddonInclusionShopFeature : BaseFeature, IDisposable
 {
-    [AddonPostSetup("InclusionShop")]
-    protected unsafe void AddonSetup(AtkUnitBase* addon)
+    public override void Enable()
     {
+        base.Enable();
+        AddonLifecycle.RegisterListener(AddonEvent.PostSetup, "InclusionShop", AddonSetup);
+    }
+
+    public override void Disable()
+    {
+        base.Disable();
+        AddonLifecycle.UnregisterListener(AddonSetup);
+    }
+
+    protected unsafe void AddonSetup(AddonEvent eventType, AddonArgs addonInfo)
+    {
+        var addon = (AtkUnitBase*)addonInfo.Addon;
+
         if (!P.Config.InclusionShopRememberEnabled)
             return;
 

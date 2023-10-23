@@ -394,6 +394,18 @@ internal class MainWindow : Window
         IndentedTextColored(shadedColor, "Remember the last panel visited on the scrip exchange window.");
 
         #endregion
+        #region GuildLeveDifficulty
+
+        var guildLeveDifficulty = P.Config.GuildLeveDifficultyConfirm;
+        if (ImGui.Checkbox("GuildLeveDifficulty", ref guildLeveDifficulty))
+        {
+            P.Config.GuildLeveDifficultyConfirm = guildLeveDifficulty;
+            P.Config.Save();
+        }
+
+        IndentedTextColored(shadedColor, "Automatically confirms guild leves upon initiation at the highest difficulty.");
+
+        #endregion
 
         ImGui.PopID();
 

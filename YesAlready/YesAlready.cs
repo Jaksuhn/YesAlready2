@@ -73,14 +73,14 @@ public class YesAlready : IDalamudPlugin
 
         Click.Initialize();
         LoadTerritories();
-        RegisterEvents(true);
+        EnableFeatures(true);
 
         Svc.Framework.Update += FrameworkUpdate;
         Svc.PluginInterface.UiBuilder.Draw += Ws.Draw;
         Svc.PluginInterface.UiBuilder.OpenConfigUi += DrawConfigUI;
     }
 
-    private static void RegisterEvents(bool enable)
+    private static void EnableFeatures(bool enable)
     {
         var featureAssembly = Assembly.GetExecutingAssembly();
 
@@ -106,7 +106,6 @@ public class YesAlready : IDalamudPlugin
         registeredCommands.Clear();
 
         Svc.Framework.Update -= FrameworkUpdate;
-        RegisterEvents(false);
 
         Svc.PluginInterface.UiBuilder.Draw -= Ws.Draw;
         Svc.PluginInterface.UiBuilder.OpenConfigUi -= DrawConfigUI;
