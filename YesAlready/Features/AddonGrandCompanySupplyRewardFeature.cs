@@ -26,7 +26,7 @@ internal class AddonGrandCompanySupplyRewardFeature : BaseFeature
     {
         var addon = (AtkUnitBase*)addonInfo.Addon;
 
-        if (!P.Config.Enabled || !P.Config.GrandCompanySupplyRewardEnabled)
+        if (!P.Config.Enabled || !P.Config.GrandCompanySupplyReward)
             return;
 
         ClickGrandCompanySupplyReward.Using((IntPtr)addon).Deliver();
