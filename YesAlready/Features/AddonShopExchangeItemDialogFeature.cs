@@ -6,26 +6,27 @@ using YesAlready.BaseFeatures;
 
 namespace YesAlready.Features;
 
-internal class AddonGuildLeveDifficultyFeature : BaseFeature
+internal class AddonShopExchangeItemDialogFeature : BaseFeature
 {
     public override void Enable()
     {
         base.Enable();
-        AddonLifecycle.RegisterListener(AddonEvent.PostSetup, "GuildLeveDifficulty", AddonSetup);
+        AddonLifecycle.RegisterListener(AddonEvent.PostSetup, "ShopExchangeItemDialog", AddonSetup);
     }
 
-    public override void Disable() {
+    public override void Disable()
+    {
         base.Disable();
         AddonLifecycle.UnregisterListener(AddonSetup);
     }
 
-    protected static unsafe void AddonSetup(AddonEvent eventType, AddonArgs addonInfo)
+    protected unsafe void AddonSetup(AddonEvent eventType, AddonArgs addonInfo)
     {
         var addon = (AtkUnitBase*)addonInfo.Addon;
 
-        if (!P.Config.Enabled || !P.Config.GuildLeveDifficultyConfirm)
+        if (!P.Config.Enabled || !P.Config.ShopExchangeItemDialogEnabled)
             return;
 
-        Callback.Fire(addon, true, 0, addon->AtkValues[1].Int);
+        Callback.Fire(addon, true, 0);
     }
 }

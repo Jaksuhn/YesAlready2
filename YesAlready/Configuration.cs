@@ -30,6 +30,7 @@ public partial class Configuration() : IPluginConfiguration
     public bool RetainerTaskResultEnabled { get; set; } = false;
     public bool GrandCompanySupplyReward { get; set; } = false;
     public bool ShopCardDialog { get; set; } = false;
+    public bool ShopExchangeItemDialogEnabled { get; set; } = false;
     public bool JournalResultCompleteEnabled { get; set; } = false;
     public bool ContentsFinderConfirmEnabled { get; set; } = false;
     public bool ContentsFinderOneTimeConfirmEnabled { get; set; } = false;

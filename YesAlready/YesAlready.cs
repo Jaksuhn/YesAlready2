@@ -80,7 +80,7 @@ public class YesAlready : IDalamudPlugin
         Svc.PluginInterface.UiBuilder.OpenConfigUi += DrawConfigUI;
     }
 
-    private static void EnableFeatures(bool enable)
+    public static void EnableFeatures(bool enable)
     {
         var featureAssembly = Assembly.GetExecutingAssembly();
 

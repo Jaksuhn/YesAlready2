@@ -56,6 +56,9 @@ internal class MainWindow : Window
     {
 #if DEBUG
         UiBuilder_TestButton();
+        if (ImGui.Button("Enable Features")) EnableFeatures(true);
+        ImGui.SameLine();
+        if (ImGui.Button("Disable Features")) EnableFeatures(false);
 #endif
 
         var enabled = P.Config.Enabled;
@@ -404,6 +407,18 @@ internal class MainWindow : Window
         }
 
         IndentedTextColored(shadedColor, "Automatically confirms guild leves upon initiation at the highest difficulty.");
+
+        #endregion
+        #region ShopExchangeItemDialog
+
+        var shopItemExchange = P.Config.ShopExchangeItemDialogEnabled;
+        if (ImGui.Checkbox("ShopExchangeItemDialog", ref shopItemExchange))
+        {
+            P.Config.ShopExchangeItemDialogEnabled = shopItemExchange;
+            P.Config.Save();
+        }
+
+        IndentedTextColored(shadedColor, "Automatically exchange items/currencies in various shops (e.g. scrip vendors).");
 
         #endregion
 
