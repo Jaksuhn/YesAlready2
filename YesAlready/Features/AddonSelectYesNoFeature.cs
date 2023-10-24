@@ -31,6 +31,9 @@ internal class AddonSelectYesNoFeature : BaseFeature
     {
         var addon = (AtkUnitBase*)addonInfo.Addon;
 
+        if (!P.Config.Enabled)
+            return;
+
         var dataPtr = (AddonSelectYesNoOnSetupData*)addon;
         if (dataPtr == null)
             return;

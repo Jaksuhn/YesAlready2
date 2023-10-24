@@ -29,7 +29,7 @@ internal class AddonInclusionShopFeature : BaseFeature, IDisposable
     {
         var addon = (AtkUnitBase*)addonInfo.Addon;
 
-        if (!P.Config.InclusionShopRememberEnabled)
+        if (!P.Config.Enabled || !P.Config.InclusionShopRememberEnabled)
             return;
 
         Svc.Log.Debug($"Firing 12,{P.Config.InclusionShopRememberCategory}");

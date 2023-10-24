@@ -32,6 +32,9 @@ internal class AddonTalkFeature : BaseFeature
     {
         var addon = (AtkUnitBase*)addonInfo.Addon;
 
+        if (!P.Config.Enabled)
+            return;
+
         var addonPtr = (AddonTalk*)addon;
         if (!addonPtr->AtkUnitBase.IsVisible)
             return;

@@ -23,7 +23,7 @@ internal class AddonGuildLeveDifficultyFeature : BaseFeature
     {
         var addon = (AtkUnitBase*)addonInfo.Addon;
 
-        if (!P.Config.GuildLeveDifficultyConfirm)
+        if (!P.Config.Enabled || !P.Config.GuildLeveDifficultyEnabled)
             return;
 
         ClickGuildLeveDifficulty.Using((nint)addon).Confirm(addon->AtkValues[1].Int);

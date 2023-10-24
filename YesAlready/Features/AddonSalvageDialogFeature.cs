@@ -25,6 +25,9 @@ internal class AddonSalvageDialogFeature : BaseFeature
     {
         var addon = (AtkUnitBase*)addonInfo.Addon;
 
+        if (!P.Config.Enabled)
+            return;
+
         if (P.Config.DesynthBulkDialogEnabled)
         {
             ((AddonSalvageDialog*)addon)->BulkDesynthEnabled = true;

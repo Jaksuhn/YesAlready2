@@ -28,6 +28,9 @@ internal class AddonSelectIconStringFeature : OnSetupSelectListFeature
     {
         var addon = (AtkUnitBase*)addonInfo.Addon;
 
+        if (!P.Config.Enabled)
+            return;
+
         var addonPtr = (AddonSelectIconString*)addon;
         var popupMenu = &addonPtr->PopupMenu.PopupMenu;
 

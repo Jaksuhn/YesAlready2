@@ -23,7 +23,7 @@ internal class AddonContentsFinderConfirmFeature : BaseFeature
     {
         var addon = (AtkUnitBase*)addonInfo.Addon;
 
-        if (!P.Config.ContentsFinderConfirmEnabled)
+        if (!P.Config.Enabled || !P.Config.ContentsFinderConfirmEnabled)
             return;
 
         ClickContentsFinderConfirm.Using((nint)addon).Commence();
