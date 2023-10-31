@@ -421,6 +421,30 @@ internal class MainWindow : Window
         IndentedTextColored(shadedColor, "Automatically exchange items/currencies in various shops (e.g. scrip vendors).");
 
         #endregion
+        #region FallGuysRegisterConfirm
+
+        var fgsEnter = P.Config.FallGuysRegisterConfirm;
+        if (ImGui.Checkbox("FGSEnterDialog", ref fgsEnter))
+        {
+            P.Config.FallGuysRegisterConfirm = fgsEnter;
+            P.Config.Save();
+        }
+
+        IndentedTextColored(shadedColor, "Automatically register for Blunderville when speaking with the Blunderville Registrar.");
+
+        #endregion
+        #region FallGuysExitConfirm
+
+        var fgsExit = P.Config.FallGuysExitConfirm;
+        if (ImGui.Checkbox("FGSExitDialog", ref fgsExit))
+        {
+            P.Config.FallGuysExitConfirm = fgsExit;
+            P.Config.Save();
+        }
+
+        IndentedTextColored(shadedColor, "Automatically confirm the exit prompt when leaving Blunderville.");
+
+        #endregion
 
         ImGui.PopID();
 

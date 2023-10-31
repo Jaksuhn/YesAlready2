@@ -38,6 +38,8 @@ public partial class Configuration() : IPluginConfiguration
     public uint InclusionShopRememberCategory { get; set; } = 0;
     public uint InclusionShopRememberSubcategory { get; set; } = 0;
     public bool GuildLeveDifficultyConfirm {  get; set; } = false;
+    public bool FallGuysRegisterConfirm { get; set; } = false;
+    public bool FallGuysExitConfirm { get; set; } = false;
 
     public bool DTRSupport { get; set; } = true;
 
